@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+
+# Build output
+out/
+dist/
+build/
+
+# VS Code extension test/download directories
+.vscode-test/
+.vscode-test-web/
+
+# Packaged VS Code extensions
+*.vsix
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary/editor files
+*.tmp
+*.swp
+*.swo
+*~
+
+# Local notes
+notes/
+
+# local Claude instructions (not committed)
+CLAUDE.local.md
