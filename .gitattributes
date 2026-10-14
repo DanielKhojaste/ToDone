@@ -1,0 +1,8 @@
+# Keep line endings predictable across Windows and other platforms.
+* text=auto eol=lf
+
+# Fixtures that deliberately use Windows line endings.
+test/fixtures/*-crlf.todo text eol=crlf
+
+*.png binary
+*.vsix binary
