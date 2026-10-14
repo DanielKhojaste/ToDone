@@ -16,7 +16,7 @@ const LANGUAGE_ID = 'todone';
 export function activate(context: vscode.ExtensionContext): void {
   const register = (id: string, run: (lines: SelectedLine[], ctx: EditContext) => string[]) =>
     context.subscriptions.push(
-      vscode.commands.registerTextEditorCommand(id, (editor) => applyToSelectedLines(editor, run)),
+      vscode.commands.registerTextEditorCommand(id, (editor, edit) => applyToSelectedLines(editor, edit, run)),
     );
 
   register('todone.toggleCompleted', (lines) => toggleState(lines, 'completed'));
@@ -65,10 +65,16 @@ function selectedLineNumbers(editor: vscode.TextEditor): number[] {
   return [...numbers].sort((a, b) => a - b);
 }
 
-async function applyToSelectedLines(
+/**
+ * Runs a line transformation over the selected lines. Changes go through the
+ * edit builder VS Code hands to text editor commands, so they are applied as a
+ * single undo step before the command resolves.
+ */
+function applyToSelectedLines(
   editor: vscode.TextEditor,
+  builder: vscode.TextEditorEdit,
   run: (lines: SelectedLine[], ctx: EditContext) => string[],
-): Promise<void> {
+): void {
   const document = editor.document;
   const infos = scanLines(documentLines(document));
   const config = vscode.workspace.getConfiguration('todone', document);
@@ -81,28 +87,24 @@ async function applyToSelectedLines(
   const selected = numbers.map((n) => ({ text: document.lineAt(n).text, info: infos[n] }));
   const updated = run(selected, ctx);
 
-  const changes = numbers
-    .map((n, i) => ({ line: n, before: selected[i].text, after: updated[i] }))
-    .filter((c) => c.before !== c.after);
-  if (!changes.length) {
-    return;
-  }
-
-  await editor.edit((builder) => {
-    for (const { line, before, after } of changes) {
-      // Replace only the part that changed so cursors on the line stay put.
-      let start = 0;
-      while (start < before.length && start < after.length && before[start] === after[start]) {
-        start++;
-      }
-      let endBefore = before.length;
-      let endAfter = after.length;
-      while (endBefore > start && endAfter > start && before[endBefore - 1] === after[endAfter - 1]) {
-        endBefore--;
-        endAfter--;
-      }
-      builder.replace(new vscode.Range(line, start, line, endBefore), after.slice(start, endAfter));
+  numbers.forEach((line, i) => {
+    const before = selected[i].text;
+    const after = updated[i];
+    if (before === after) {
+      return;
     }
+    // Replace only the part that changed so cursors on the line stay put.
+    let start = 0;
+    while (start < before.length && start < after.length && before[start] === after[start]) {
+      start++;
+    }
+    let endBefore = before.length;
+    let endAfter = after.length;
+    while (endBefore > start && endAfter > start && before[endBefore - 1] === after[endAfter - 1]) {
+      endBefore--;
+      endAfter--;
+    }
+    builder.replace(new vscode.Range(line, start, line, endBefore), after.slice(start, endAfter));
   });
 }
 
