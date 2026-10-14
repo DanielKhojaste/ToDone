@@ -8,7 +8,10 @@ import {
   shiftPriority,
   toggleState,
 } from './edits';
-import { Priority, scanLines } from './parser';
+import { buildOutline, OutlineNode } from './outline';
+import { LineInfo, Priority, scanLines } from './parser';
+
+const LANGUAGE_ID = 'todone';
 
 export function activate(context: vscode.ExtensionContext): void {
   const register = (id: string, run: (lines: SelectedLine[], ctx: EditContext) => string[]) =>
@@ -24,6 +27,14 @@ export function activate(context: vscode.ExtensionContext): void {
   for (const p of [1, 2, 3, 4, 5] as Priority[]) {
     register(`todone.setPriority${p}`, (lines, ctx) => setPriority(lines, p, ctx));
   }
+
+  context.subscriptions.push(
+    vscode.languages.registerDocumentSymbolProvider(
+      { language: LANGUAGE_ID },
+      { provideDocumentSymbols: (document) => provideSymbols(document) },
+      { label: 'ToDone' },
+    ),
+  );
 }
 
 export function deactivate(): void {
@@ -93,4 +104,35 @@ async function applyToSelectedLines(
       builder.replace(new vscode.Range(line, start, line, endBefore), after.slice(start, endAfter));
     }
   });
+}
+
+function provideSymbols(document: vscode.TextDocument): vscode.DocumentSymbol[] {
+  const lines = documentLines(document);
+  const infos: LineInfo[] = scanLines(lines);
+  const config = vscode.workspace.getConfiguration('todone', document);
+  const editorConfig = vscode.workspace.getConfiguration('editor', {
+    uri: document.uri,
+    languageId: document.languageId,
+  });
+  const tabSize = Number(editorConfig.get('tabSize', 4)) || 4;
+  const nodes = buildOutline(lines, infos, {
+    tabSize,
+    showCompleted: config.get<boolean>('outline.showCompletedTasks', false),
+    showCancelled: config.get<boolean>('outline.showCancelledTasks', false),
+  });
+
+  const toSymbol = (node: OutlineNode): vscode.DocumentSymbol => {
+    const kind =
+      node.kind === 'heading'
+        ? vscode.SymbolKind.String
+        : node.emergency
+          ? vscode.SymbolKind.Event
+          : vscode.SymbolKind.Field;
+    const range = new vscode.Range(node.line, 0, node.endLine, lines[node.endLine].length);
+    const selection = new vscode.Range(node.line, node.nameStart, node.line, node.nameEnd);
+    const symbol = new vscode.DocumentSymbol(node.name, node.detail, kind, range, selection);
+    symbol.children = node.children.map(toSymbol);
+    return symbol;
+  };
+  return nodes.map(toSymbol);
 }

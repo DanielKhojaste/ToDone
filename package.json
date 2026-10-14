@@ -170,6 +170,16 @@
             "Always write repeated hyphens such as ---."
           ],
           "markdownDescription": "How priority commands write the priority marker. With `preserve`, a task written as `-5` stays numeric and a task written as `-----` keeps its hyphens."
+        },
+        "todone.outline.showCompletedTasks": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Show completed (`+`) tasks and their subtasks in the Outline view and in Go to Symbol."
+        },
+        "todone.outline.showCancelledTasks": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Show cancelled (`.`) tasks and their subtasks in the Outline view and in Go to Symbol."
         }
       }
     }
