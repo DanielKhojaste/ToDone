@@ -48,7 +48,131 @@
         "scopeName": "text.todone",
         "path": "./syntaxes/todone.tmLanguage.json"
       }
-    ]
+    ],
+    "commands": [
+      {
+        "command": "todone.toggleCompleted",
+        "title": "Toggle Completed",
+        "category": "ToDone"
+      },
+      {
+        "command": "todone.toggleEmergency",
+        "title": "Toggle Emergency",
+        "category": "ToDone"
+      },
+      {
+        "command": "todone.toggleCancelled",
+        "title": "Toggle Cancelled",
+        "category": "ToDone"
+      },
+      {
+        "command": "todone.increasePriority",
+        "title": "Increase Priority",
+        "category": "ToDone"
+      },
+      {
+        "command": "todone.decreasePriority",
+        "title": "Decrease Priority",
+        "category": "ToDone"
+      },
+      {
+        "command": "todone.setPriority1",
+        "title": "Set Priority 1",
+        "category": "ToDone"
+      },
+      {
+        "command": "todone.setPriority2",
+        "title": "Set Priority 2",
+        "category": "ToDone"
+      },
+      {
+        "command": "todone.setPriority3",
+        "title": "Set Priority 3",
+        "category": "ToDone"
+      },
+      {
+        "command": "todone.setPriority4",
+        "title": "Set Priority 4",
+        "category": "ToDone"
+      },
+      {
+        "command": "todone.setPriority5",
+        "title": "Set Priority 5",
+        "category": "ToDone"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "todone.toggleCompleted",
+          "when": "editorLangId == todone"
+        },
+        {
+          "command": "todone.toggleEmergency",
+          "when": "editorLangId == todone"
+        },
+        {
+          "command": "todone.toggleCancelled",
+          "when": "editorLangId == todone"
+        },
+        {
+          "command": "todone.increasePriority",
+          "when": "editorLangId == todone"
+        },
+        {
+          "command": "todone.decreasePriority",
+          "when": "editorLangId == todone"
+        },
+        {
+          "command": "todone.setPriority1",
+          "when": "editorLangId == todone"
+        },
+        {
+          "command": "todone.setPriority2",
+          "when": "editorLangId == todone"
+        },
+        {
+          "command": "todone.setPriority3",
+          "when": "editorLangId == todone"
+        },
+        {
+          "command": "todone.setPriority4",
+          "when": "editorLangId == todone"
+        },
+        {
+          "command": "todone.setPriority5",
+          "when": "editorLangId == todone"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "todone.toggleCompleted",
+        "key": "ctrl+/",
+        "mac": "cmd+/",
+        "when": "editorTextFocus && !editorReadonly && editorLangId == todone"
+      }
+    ],
+    "configuration": {
+      "title": "ToDone",
+      "properties": {
+        "todone.priorityStyle": {
+          "type": "string",
+          "enum": [
+            "preserve",
+            "numeric",
+            "hyphens"
+          ],
+          "default": "preserve",
+          "enumDescriptions": [
+            "Keep the notation each task already uses. New markers use the numeric form (-3).",
+            "Always write numeric markers such as -3.",
+            "Always write repeated hyphens such as ---."
+          ],
+          "markdownDescription": "How priority commands write the priority marker. With `preserve`, a task written as `-5` stays numeric and a task written as `-----` keeps its hyphens."
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
