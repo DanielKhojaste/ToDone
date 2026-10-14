@@ -41,16 +41,27 @@
         ],
         "configuration": "./language-configuration.json"
       }
+    ],
+    "grammars": [
+      {
+        "language": "todone",
+        "scopeName": "text.todone",
+        "path": "./syntaxes/todone.tmLanguage.json"
+      }
     ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
+    "watch": "tsc -watch -p ./",
+    "grammar": "node scripts/build-grammar.js",
+    "grammar:check": "node scripts/build-grammar.js --check"
   },
   "devDependencies": {
     "@types/node": "^20.17.0",
     "@types/vscode": "~1.75.0",
-    "typescript": "^5.6.0"
+    "typescript": "^5.6.0",
+    "vscode-oniguruma": "^2.0.1",
+    "vscode-textmate": "^9.3.2"
   }
 }
