@@ -1,0 +1,58 @@
+Todo
+
+-1 Low priority
+-2 Priority 2
+-3 Priority 3
+-4 Priority 4
+-5 Priority 5
+
+- Low priority old syntax
+-- Priority 2 old syntax
+--- Priority 3 old syntax
+---- Priority 4 old syntax
+----- Priority 5 old syntax
+
+!-5 Emergency priority 5
++-5 Completed priority 5
+.-5 Cancelled priority 5
+
+!----- Emergency priority 5 old syntax
++----- Completed priority 5 old syntax
+.----- Cancelled priority 5 old syntax
+
+-4 Parent task
+    -3 Child task
+        -2 Grandchild task
+
+-3 Task with inline note: this is a note
+
+-3 Task with multiline note
+    This is additional information.
+
+-3 Task with raw note ///
+    This is a raw note block.
+    -5 Verify whether this remains note content.
+    ///
+
+-3 Task with a `highlighted phrase` in its note
+-3 Task with a note: that has a `highlighted phrase`
+
+-5 Critical active task
+!-5 Critical emergency task
++-5 Critical completed task
+.-5 Critical cancelled task
+.-5 (no longer needed) Critical cancelled task with a reason
++!-5 Critical completed emergency task
+.!-4 Cancelled emergency task
+
++-4 Completed parent
+    -3 Child of a completed task
+    -2 Another child: with a note
+
+.-4 Cancelled parent
+    -3 Child of a cancelled task
+
+!-4 Emergency parent
+    -2 Child of an emergency task
+
+-3 Visit https://example.com/path for details: the URL stays in the title
