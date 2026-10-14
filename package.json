@@ -8,6 +8,14 @@
     "name": "Daniel Khojaste"
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DanielKhojaste/ToDone.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DanielKhojaste/ToDone/issues"
+  },
+  "homepage": "https://github.com/DanielKhojaste/ToDone#readme",
   "engines": {
     "vscode": "^1.75.0"
   },
@@ -194,7 +202,8 @@
     "pretest": "npm run compile",
     "test": "npm run lint && npm run grammar:check && npm run test:unit",
     "test:unit": "mocha \"out/test/unit/**/*.test.js\" \"out/test/grammar/**/*.test.js\"",
-    "test:integration": "npm run compile && vscode-test"
+    "test:integration": "npm run compile && vscode-test",
+    "package": "vsce package"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
@@ -203,6 +212,7 @@
     "@types/vscode": "~1.75.0",
     "@vscode/test-cli": "^0.0.15",
     "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^3.9.2",
     "eslint": "^9.39.5",
     "mocha": "^11.8.0",
     "typescript": "^5.6.0",
