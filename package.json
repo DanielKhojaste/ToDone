@@ -187,22 +187,26 @@
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
+    "lint": "eslint .",
     "watch": "tsc -watch -p ./",
     "grammar": "node scripts/build-grammar.js",
     "grammar:check": "node scripts/build-grammar.js --check",
     "pretest": "npm run compile",
-    "test": "npm run test:unit",
+    "test": "npm run lint && npm run grammar:check && npm run test:unit",
     "test:unit": "mocha \"out/test/unit/**/*.test.js\" \"out/test/grammar/**/*.test.js\"",
     "test:integration": "npm run compile && vscode-test"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.5",
     "@types/mocha": "^10.0.10",
     "@types/node": "^20.17.0",
     "@types/vscode": "~1.75.0",
     "@vscode/test-cli": "^0.0.15",
     "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.39.5",
     "mocha": "^11.8.0",
     "typescript": "^5.6.0",
+    "typescript-eslint": "^8.71.2",
     "vscode-oniguruma": "^2.0.1",
     "vscode-textmate": "^9.3.2"
   }

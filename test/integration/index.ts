@@ -6,7 +6,7 @@
  */
 import * as fs from 'fs';
 import * as path from 'path';
-import Mocha = require('mocha');
+import Mocha from 'mocha';
 
 export function run(): Promise<void> {
   const reportFile = process.env.TODONE_TEST_REPORT;
