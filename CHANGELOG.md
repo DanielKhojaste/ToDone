@@ -2,6 +2,18 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [0.2.0] - Unreleased
+
+### Added
+
+- Built-in colors for priorities, states, notes and headings that stay distinct in any color theme, with defaults for dark, light and high contrast themes. Each color can be changed under `workbench.colorCustomizations`.
+- `todone.colors` setting to switch back to the color theme's own colors.
+- Emergency tasks show the `!` on a red background, as in the original package.
+
+### Fixed
+
+- Priorities were hard or impossible to tell apart in color themes that give the grammar's scopes the same color.
+
 ## [0.1.0] - 2026-10-20
 
 First release.
