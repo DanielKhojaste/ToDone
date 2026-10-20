@@ -10,6 +10,7 @@ function color(id: string): vscode.ThemeColor {
 
 /** Visual style for each kind of range. Colors come from `contributes.colors`. */
 const STYLES: Record<ColorStyle, vscode.DecorationRenderOptions> = {
+  'title-1': { color: color('priority1Foreground') },
   'title-2': { color: color('priority2Foreground') },
   'title-3': { color: color('priority3Foreground') },
   'title-4': { color: color('priority4Foreground') },

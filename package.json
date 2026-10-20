@@ -221,6 +221,16 @@
         }
       },
       {
+        "id": "todone.priority1Foreground",
+        "description": "Priority 1 task titles.",
+        "defaults": {
+          "dark": "editor.foreground",
+          "light": "editor.foreground",
+          "highContrast": "editor.foreground",
+          "highContrastLight": "editor.foreground"
+        }
+      },
+      {
         "id": "todone.priority2Foreground",
         "description": "Priority 2 task titles and markers.",
         "defaults": {

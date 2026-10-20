@@ -17,6 +17,7 @@ describe('computeColorRanges', () => {
     assert.deepStrictEqual(s('marker-5'), ['0:-5', '1:-----']);
     assert.deepStrictEqual(s('title-3'), ['2:Three', '3:Three too']);
     assert.deepStrictEqual(s('marker-1'), ['4:-1']);
+    assert.deepStrictEqual(s('title-1'), ['4:Low']);
   });
 
   it('marks emergency tasks', () => {

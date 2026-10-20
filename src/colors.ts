@@ -11,6 +11,7 @@
 import { indentWidth, LineInfo } from './parser';
 
 export type ColorStyle =
+  | 'title-1'
   | 'title-2'
   | 'title-3'
   | 'title-4'
@@ -120,9 +121,7 @@ export function computeColorRanges(lines: readonly string[], infos: readonly Lin
     }
 
     add(`marker-${task.priority}`, i, markerStart, markerEnd);
-    if (task.priority > 1) {
-      add(`title-${task.priority}` as ColorStyle, i, task.titleStart, task.titleEnd);
-    }
+    add(`title-${task.priority}`, i, task.titleStart, task.titleEnd);
     if (task.emergency) {
       const bang = markerStart - 1;
       add('emergency-mark', i, bang, bang + 1);
