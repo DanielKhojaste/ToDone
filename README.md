@@ -153,7 +153,7 @@ Tasks and headings appear in the Outline view, in the breadcrumbs and in **Go to
 
 ## Colors
 
-ToDone brings its own colors, so priorities and states look the same whichever color theme you use. Each priority level has its own color, emergency tasks get a red `!` like the original package, completed tasks are dimmed and struck through, cancelled tasks are dimmed with their reason highlighted, and notes stay in the background. Separate defaults are provided for dark, light and high contrast themes.
+ToDone brings its own colors, so priorities and states look the same whichever color theme you use. Each priority level has its own color, emergency tasks get a red `!` like the original package, completed tasks are dimmed and struck through, cancelled tasks are dimmed with their reason highlighted, notes stay in the background, and text in backticks inside a note gets its own color. Separate defaults are provided for dark, light and high contrast themes.
 
 Every color can be changed in your settings under `workbench.colorCustomizations`. For example, to make priority 5 orange and headings green:
 
@@ -164,7 +164,7 @@ Every color can be changed in your settings under `workbench.colorCustomizations
 }
 ```
 
-The available colors are `todone.priority1Foreground` to `todone.priority5Foreground`, `todone.markerForeground`, `todone.emergencyForeground`, `todone.emergencyBackground`, `todone.completedForeground`, `todone.cancelledForeground`, `todone.noteForeground` and `todone.headingForeground`. Settings Sync and theme-specific blocks such as `"[Default Dark Modern]": { ... }` work as usual.
+The available colors are `todone.priority1Foreground` to `todone.priority5Foreground`, `todone.markerForeground`, `todone.emergencyForeground`, `todone.emergencyBackground`, `todone.completedForeground`, `todone.cancelledForeground`, `todone.noteForeground`, `todone.emphasisForeground` and `todone.headingForeground`. Settings Sync and theme-specific blocks such as `"[Default Dark Modern]": { ... }` work as usual.
 
 ### Using your theme's colors instead
 
