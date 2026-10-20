@@ -2,66 +2,79 @@
 
 ToDone for VS Code is an unofficial VS Code port based on the original [ToDone](https://github.com/tiffon/sublime-to-done) package for Sublime Text by tiffon.
 
-All credit for the ToDone format, its syntax and the idea behind it belongs to the original author. This project only brings that workflow to VS Code. It is not affiliated with or endorsed by the original project. If you use Sublime Text, the original package is available on [Package Control](https://packagecontrol.io/packages/ToDone).
+All credit for the ToDone format, its syntax and the idea behind it goes to the original author. This project brings that workflow to VS Code and is not affiliated with or endorsed by the original project. If you use Sublime Text, grab the original package from [Package Control](https://packagecontrol.io/packages/ToDone).
 
-## What ToDone is
+![A ToDone file in VS Code with colored priorities, an emergency task, completed and cancelled tasks, notes and headings](images/readme/example.png)
 
-ToDone is a way of keeping to-do lists in plain text files. A task is a line that starts with a priority marker, subtasks are indented beneath it, and notes sit next to or below the task they belong to. There is no database, no account and no sync service. The file is the list, and the editor adds the highlighting that makes it easy to read at a glance.
+## Hey there! 👋
 
-This port exists because the format works well and deserved a home in VS Code too. Your files stay exactly as they are, so the same list can be opened in Sublime Text with the original package or in VS Code with this one.
+I use ToDone in Sublime Text all the time. It's the simplest way I know to keep a to-do list: a plain text file where every line starts with a priority, and the editor does the rest. I wanted the exact same thing in VS Code, so here it is. 🙂
 
-## File types
+🟪 **Plain text.** Your list is just a `.todo` file. No accounts, no database, no sync service.
 
-Files ending in `.todo` or `.todone` open as ToDone automatically. For any other file, choose **ToDone** from the language picker in the status bar.
+🟪 **Five priority levels**, written as `-1` to `-5` or `-` to `-----`. Both look identical.
+
+🟪 **Emergency, completed and cancelled** tasks, with subtasks that follow their parent.
+
+🟪 **Notes** next to or under any task.
+
+🟪 **Colors that work in any theme**, dark or light.
+
+🟪 **Commands and an outline** so you can manage tasks without leaving the keyboard.
+
+🟣 **Compatible with Sublime ToDone.** The same file opens in both editors.
+
+## Quick start
+
+1. Install **ToDone for VS Code** from the Extensions view (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd>).
+2. Create a file that ends in `.todo` or `.todone`.
+3. Start typing:
+
+   ```text
+   Today
+
+   -5 Something urgent
+   -3 Something normal: with a note
+   -1 Something that can wait
+   ```
+
+4. Put your cursor on a task and press <kbd>Ctrl</kbd>+<kbd>/</kbd> to mark it done. That's it! 🎉
+
+The rest of this page explains everything ToDone can do.
 
 ## Priorities
 
-There are five priority levels. Priority 5 is the most important and priority 1 is the least important. Each level can be written in two equivalent ways.
+There are five priority levels. **5 is the most important** and **1 is the least important**. Each level can be written in two ways, and both look exactly the same:
 
-**Numeric form**
+| Priority | Numeric | Hyphens |
+| --- | --- | --- |
+| 5 (highest) | `-5` | `-----` |
+| 4 | `-4` | `----` |
+| 3 | `-3` | `---` |
+| 2 | `-2` | `--` |
+| 1 (lowest) | `-1` | `-` |
 
-```text
--5 Priority 5
--4 Priority 4
--3 Priority 3
--2 Priority 2
--1 Priority 1
-```
+![Numeric and hyphen priorities side by side, colored the same way](images/readme/priorities.png)
 
-**Repeated-hyphen form**
-
-```text
------ Priority 5
----- Priority 4
---- Priority 3
--- Priority 2
-- Priority 1
-```
-
-Both forms are fully supported and are highlighted identically, so `-5` and `-----` look the same. You can mix them in one file. The marker must be followed by a space or a tab.
+Use whichever style you like, or mix them in the same file. The marker just needs a space or a tab after it.
 
 ## States
 
-A single character in front of the marker changes the state of a task. States work with both priority forms.
+Put one character in front of the marker to change a task's state. States work with both priority styles.
 
-```text
--5 An active task
-!-5 An emergency task
-+-5 A completed task
-.-5 A cancelled task
-.-5 (no longer needed) A cancelled task with a reason
-+!-5 A completed task that was an emergency
-```
+| Prefix | State | What it looks like |
+| --- | --- | --- |
+| `!` | Emergency | The `!` gets a red background and the title turns bold. |
+| `+` | Completed | The task is dimmed and crossed out. |
+| `.` | Cancelled | The task is dimmed. Text in parentheses right after the marker is shown as the reason. |
 
-| Prefix | Meaning |
-| --- | --- |
-| `!` | Emergency. The task is emphasized. |
-| `+` | Completed. The task and all of its subtasks are dimmed. |
-| `.` | Cancelled. The task and all of its subtasks are dimmed. Text in parentheses right after the marker is shown as the reason. |
+![Active, emergency, completed and cancelled tasks](images/readme/states.png)
+
+You can combine them too. For example, `+!-5` is a completed task that used to be an emergency.
 
 ## Subtasks
 
-Indent a task under another one to make it a subtask. Spaces and tabs both work. Completing or cancelling a task also applies to everything nested under it.
+Indent a task under another one to make it a subtask. Spaces and tabs both work.
 
 ```text
 -4 Parent task
@@ -69,61 +82,60 @@ Indent a task under another one to make it a subtask. Spaces and tabs both work.
         -2 Grandchild task
 ```
 
+Completing or cancelling a task also completes or cancels everything nested under it.
+
 ## Notes
 
-A task can carry notes in three ways.
+A task can carry notes in three ways:
 
-```text
--3 Task with an inline note: everything after the colon is a note
+![An inline note, notes underneath a task and a raw note block](images/readme/notes.png)
 
--3 Task with a note below it
-    Indented lines that are not tasks are notes.
+1. **Inline:** everything after a colon `:` on the task's line.
+2. **Underneath:** indented lines below a task that aren't tasks themselves.
+3. **Raw:** everything between two `///` markers. Use this when your note has lines that start with `-` or `+` and you don't want them treated as tasks.
 
--3 Task with a raw note ///
-    Everything between the slashes is a note,
-    - including lines that look like tasks.
-    ///
-```
-
-Text wrapped in backticks, such as `` `this` ``, is emphasized. URLs such as `https://example.com` can be used in a task title without starting a note.
+Wrap words in backticks, like `` `this` ``, to make them stand out in a note. Links such as `https://example.com` can go in a task title without starting a note.
 
 ## Headings
 
-Any line that starts at the left margin and is not a task is treated as a heading. Text between `/*` and `*/` at the start of a line forms an offset heading, which may span several lines.
+Any line that starts at the left edge and isn't a task is a heading. Use headings to group your tasks.
 
 ```text
 Work
 -3 Finish the report
 
-/*
-    Someday
-*/
--1 Learn the cello
+Home
+-2 Fix the leaky tap
 ```
+
+Text between `/*` and `*/` at the start of a line also forms a heading, and it can span several lines.
 
 ## Commands
 
-All commands are available from the Command Palette under the **ToDone** category while a ToDone file is open. They work on every line touched by the selection, and on every cursor when you use multiple cursors.
+Open the Command Palette (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>) and type **ToDone** to see every command.
+
+![Completing a task with Ctrl+/, raising a priority and flagging an emergency from the Command Palette](images/readme/commands.gif)
 
 | Command | What it does |
 | --- | --- |
-| ToDone: Toggle Completed | Adds or removes `+`. |
+| ToDone: Toggle Completed | Adds or removes `+`. Also on <kbd>Ctrl</kbd>+<kbd>/</kbd> (<kbd>Cmd</kbd>+<kbd>/</kbd> on macOS). |
 | ToDone: Toggle Emergency | Adds or removes `!`. |
 | ToDone: Toggle Cancelled | Adds or removes `.`. |
 | ToDone: Increase Priority | Raises the priority by one, up to 5. |
 | ToDone: Decrease Priority | Lowers the priority by one, down to 1. |
-| ToDone: Set Priority 1 to 5 | Sets an exact priority. On a plain line, this turns the line into a task. |
+| ToDone: Set Priority 1 to 5 | Sets an exact priority. On a plain line of text, this turns the line into a task. |
 
-A few details worth knowing:
+Good to know:
 
-- Indentation, separators, titles, notes and cancellation reasons are never changed.
-- Commands keep the notation you already use. Raising `-4` gives `-5`, and raising `----` gives `-----`. A numeric task never turns into hyphens unless you ask for it with the setting below.
-- When a toggle runs on several tasks at once, it behaves like VS Code's comment toggle: the state is added to all of them unless they all have it already.
-- Completed and cancelled are treated as alternatives. Completing a cancelled task removes the `.`, and cancelling a completed task removes the `+`.
+- Commands work on **every selected line** and on **every cursor** when you use multiple cursors.
+- They **keep your notation**. Raising `-4` gives `-5`, and raising `----` gives `-----`. A numeric task never turns into hyphens unless you ask for it with the `todone.priorityStyle` setting.
+- Indentation, titles, notes and cancellation reasons are never touched.
+- Toggles on several tasks work like VS Code's comment toggle: the state is added to all of them, unless they all have it already, in which case it's removed from all of them.
+- Completed and cancelled can't both apply. Completing a cancelled task removes the `.`, and cancelling a completed task removes the `+`.
 
 ### Keyboard shortcuts
 
-The original package toggled completion with the comment shortcut, so this port does the same: **Ctrl+/** (**Cmd+/** on macOS) runs Toggle Completed, but only inside ToDone files. No other shortcuts are assigned by default. To add your own, open **Preferences: Open Keyboard Shortcuts (JSON)** and add entries such as these:
+Only <kbd>Ctrl</kbd>+<kbd>/</kbd> is set up out of the box, and only inside ToDone files. Want more? Open the Command Palette, run **Preferences: Open Keyboard Shortcuts (JSON)** and add the ones you like:
 
 ```json
 [
@@ -136,26 +148,23 @@ The original package toggled completion with the comment shortcut, so this port 
 ]
 ```
 
-To remove the Ctrl+/ binding, add `{ "key": "ctrl+/", "command": "-todone.toggleCompleted" }` to the same file.
+To turn off the <kbd>Ctrl</kbd>+<kbd>/</kbd> shortcut, add `{ "key": "ctrl+/", "command": "-todone.toggleCompleted" }` to the same file.
 
-## Outline and navigation
+## Finding your way around
 
-Tasks and headings appear in the Outline view, in the breadcrumbs and in **Go to Symbol in Editor** (Ctrl+Shift+O). Subtasks are nested under their parents and tasks are grouped under their headings. As in the original package, completed and cancelled tasks are left out so the list shows current work. They can be brought back with the settings below.
+Press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>O</kbd> (**Go to Symbol in Editor**) to jump to any task. Your tasks also show up in the **Outline** view and in the breadcrumbs above the editor. Subtasks are nested under their parents and tasks are grouped under their headings.
 
-## Settings
+![Go to Symbol listing the current tasks, grouped under their headings](images/readme/goto.png)
 
-| Setting | Default | Description |
-| --- | --- | --- |
-| `todone.colors` | `builtin` | `builtin` uses ToDone's own colors in any theme. `theme` leaves coloring to your color theme. |
-| `todone.priorityStyle` | `preserve` | How priority commands write markers. `preserve` keeps each task's current notation and uses the numeric form for new tasks. `numeric` always writes `-3`. `hyphens` always writes `---`. |
-| `todone.outline.showCompletedTasks` | `false` | Show completed tasks in the outline. |
-| `todone.outline.showCancelledTasks` | `false` | Show cancelled tasks in the outline. |
+Completed and cancelled tasks are left out, so you only see what's still on your plate. You can bring them back with the settings below.
 
 ## Colors
 
-ToDone brings its own colors, so priorities and states look the same whichever color theme you use. Each priority level has its own color, emergency tasks get a red `!` like the original package, completed tasks are dimmed and struck through, cancelled tasks are dimmed with their reason highlighted, notes stay in the background, and text in backticks inside a note gets its own color. Separate defaults are provided for dark, light and high contrast themes.
+ToDone comes with its own colors, so your priorities and states stay easy to tell apart in any theme. There are separate colors for dark, light and high contrast themes.
 
-Every color can be changed in your settings under `workbench.colorCustomizations`. For example, to make priority 5 orange and headings green:
+![The same ToDone file in a light theme](images/readme/example-light.png)
+
+Want different colors? Change any of them in your settings under `workbench.colorCustomizations`. For example, to make priority 5 orange and headings green:
 
 ```json
 "workbench.colorCustomizations": {
@@ -164,11 +173,28 @@ Every color can be changed in your settings under `workbench.colorCustomizations
 }
 ```
 
-The available colors are `todone.priority1Foreground` to `todone.priority5Foreground`, `todone.markerForeground`, `todone.emergencyForeground`, `todone.emergencyBackground`, `todone.completedForeground`, `todone.cancelledForeground`, `todone.noteForeground`, `todone.emphasisForeground` and `todone.headingForeground`. Settings Sync and theme-specific blocks such as `"[Default Dark Modern]": { ... }` work as usual.
+<details>
+<summary>All the colors you can change</summary>
+
+| Color | Used for |
+| --- | --- |
+| `todone.priority1Foreground` to `todone.priority5Foreground` | Task titles and markers for each priority |
+| `todone.markerForeground` | The marker of a priority 1 task |
+| `todone.emergencyForeground` | The `!` of an emergency task |
+| `todone.emergencyBackground` | The background behind the `!` |
+| `todone.completedForeground` | The `+` of a completed task |
+| `todone.cancelledForeground` | The `.` of a cancelled task and its reason |
+| `todone.noteForeground` | Notes |
+| `todone.emphasisForeground` | Text in backticks inside notes |
+| `todone.headingForeground` | Headings |
+
+Theme-specific blocks such as `"[Default Dark Modern]": { ... }` work as usual.
+
+</details>
 
 ### Using your theme's colors instead
 
-Set `"todone.colors": "theme"` to turn the built-in colors off. ToDone then relies on the grammar alone, which tags each part of a task with scopes that most themes already color. Some themes give those scopes the same color, so priorities can blur together. You can target the ToDone scopes directly with `editor.tokenColorCustomizations`:
+Prefer your theme's own colors? Set `"todone.colors": "theme"`. Keep in mind that some themes use the same color for several things, so priorities can blur together. You can fix that by targeting ToDone's scopes with `editor.tokenColorCustomizations`:
 
 ```json
 "editor.tokenColorCustomizations": {
@@ -180,44 +206,53 @@ Set `"todone.colors": "theme"` to turn the built-in colors off. ToDone then reli
 }
 ```
 
-Run **Developer: Inspect Editor Tokens and Scopes** on any part of a task to see the scopes it carries.
+Run **Developer: Inspect Editor Tokens and Scopes** on any part of a task to see its scopes.
 
-## Installation
+## Settings
 
-Once the extension is published, it can be installed from the Extensions view by searching for "ToDone for VS Code".
+| Setting | Default | What it does |
+| --- | --- | --- |
+| `todone.colors` | `builtin` | `builtin` uses ToDone's own colors in any theme. `theme` uses your color theme's colors. |
+| `todone.priorityStyle` | `preserve` | How commands write priority markers. `preserve` keeps each task's current style and uses the numeric style for new tasks. `numeric` always writes `-3`. `hyphens` always writes `---`. |
+| `todone.outline.showCompletedTasks` | `false` | Show completed tasks in the outline and in Go to Symbol. |
+| `todone.outline.showCancelledTasks` | `false` | Show cancelled tasks in the outline and in Go to Symbol. |
 
-### Installing from a VSIX file
+## Installing from a VSIX file
 
-To install a locally built package, run the following in PowerShell from the project folder:
+Every [GitHub release](https://github.com/DanielKhojaste/ToDone/releases) has a `.vsix` file attached. To install one, run:
 
 ```powershell
-npm install
-npx @vscode/vsce package
-code --install-extension .\todone-vscode-0.2.0.vsix
+code --install-extension todone-vscode-0.2.1.vsix
 ```
 
 You can also use **Extensions: Install from VSIX...** from the Command Palette.
 
 ## Development
 
+Want to poke around the code? Here's how to get going:
+
 ```powershell
 npm install
 npm test                  # lint, grammar check, unit and grammar tests
 npm run test:integration  # runs the extension tests inside a downloaded copy of VS Code
+npm run package           # builds the .vsix file
 ```
 
-To try the extension from source, open the project folder in VS Code, run `npm install` once, then press F5 (or choose **Run Extension** in the Run and Debug view). A second VS Code window titled "[Extension Development Host]" opens with the extension loaded and the sample files from `test/fixtures` in the Explorer. Open `spec.todo` or `original-readme.todo` to see the highlighting, and try the **ToDone:** commands from the Command Palette. The **Extension Tests** configuration runs the integration tests in the same way.
+To try your changes, open the project folder in VS Code and press <kbd>F5</kbd> (or choose **Run Extension** in the Run and Debug view). A second VS Code window titled "[Extension Development Host]" opens with the extension loaded and the sample files from `test/fixtures` ready to go. The **Extension Tests** configuration runs the integration tests the same way.
 
-The grammar in `syntaxes/todone.tmLanguage.json` is generated by `scripts/build-grammar.js`, so edit the script and run `npm run grammar` rather than editing the JSON by hand.
+The grammar in `syntaxes/todone.tmLanguage.json` is generated by `scripts/build-grammar.js`, so edit the script and run `npm run grammar` instead of editing the JSON by hand.
 
-## Known differences from Sublime ToDone
+## Differences from Sublime ToDone
 
-- **Blank lines inside a task.** In the original package, a blank line ended a task's block, so a completed or cancelled state did not carry over to subtasks that came after a blank line. Here, nesting is decided by indentation alone, so those subtasks are dimmed as well. The outline uses the same rule.
-- **Numeric markers on finished tasks.** The original grammar did not fully recognize forms such as `+-5`, and subtasks written as `-3` inside a completed or cancelled task only had their hyphen styled. Both are handled consistently here.
-- **Emphasis in titles.** Backtick emphasis is also highlighted in task titles, not only in notes.
-- **Completed titles** are shown with a strikethrough.
-- **Colors.** The original package switched your whole editor to its own color scheme. This port leaves your theme alone and colors only ToDone files.
-- **No forced settings.** The original package also set an 8-column hard-tab layout. This port leaves your editor settings alone.
+- **Blank lines inside a task.** In the original package, a blank line ended a task's block, so a completed or cancelled state didn't carry over to subtasks after a blank line. Here, nesting is decided by indentation alone, so those subtasks are dimmed too. The outline follows the same rule.
+- **Numeric markers on finished tasks.** The original grammar didn't fully recognize forms such as `+-5`, and subtasks written as `-3` inside a completed or cancelled task only had their hyphen styled. Both work consistently here.
+- **Completed titles** are crossed out.
+- **Emphasis in titles.** With `"todone.colors": "theme"`, backtick text is also highlighted in task titles, not only in notes.
+- **Your theme stays yours.** The original package switched your whole editor to its own color scheme and set an 8-column hard-tab layout. This port only colors ToDone files and leaves your settings alone.
+
+## Feedback
+
+Found a bug or have an idea? [Open an issue](https://github.com/DanielKhojaste/ToDone/issues) and tell me about it. I'd love to hear how you use ToDone! 😎
 
 ## Credits and license
 
