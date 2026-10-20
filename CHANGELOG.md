@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
-## [0.1.0] - Unreleased
+## [0.1.0] - 2026-10-20
 
 First release.
 
@@ -16,3 +16,4 @@ First release.
 - `todone.priorityStyle` setting.
 - Outline, breadcrumbs and Go to Symbol support that leaves out completed and cancelled tasks by default.
 - Ctrl+/ (Cmd+/ on macOS) toggles completion inside ToDone files.
+- Extension icon and a launch configuration for running the extension from source.
