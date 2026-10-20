@@ -222,7 +222,7 @@ Run **Developer: Inspect Editor Tokens and Scopes** on any part of a task to see
 Every [GitHub release](https://github.com/DanielKhojaste/ToDone/releases) has a `.vsix` file attached. To install one, run:
 
 ```powershell
-code --install-extension todone-vscode-0.2.1.vsix
+code --install-extension todone-vscode-0.2.2.vsix
 ```
 
 You can also use **Extensions: Install from VSIX...** from the Command Palette.

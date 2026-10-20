@@ -2,7 +2,7 @@
   "name": "todone-vscode",
   "displayName": "ToDone for VS Code",
   "description": "Unofficial VS Code port of the ToDone plain-text to-do list syntax for Sublime Text.",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "publisher": "danielkhojaste",
   "author": {
     "name": "Daniel Khojaste"
