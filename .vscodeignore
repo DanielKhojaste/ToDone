@@ -8,6 +8,7 @@ out/test/**
 out/**/*.map
 notes/**
 images/*.svg
+images/readme/**
 **/*.ts
 **/tsconfig.json
 **/eslint.config.*
