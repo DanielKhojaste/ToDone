@@ -325,6 +325,16 @@
         }
       },
       {
+        "id": "todone.emphasisForeground",
+        "description": "Text wrapped in backticks inside notes.",
+        "defaults": {
+          "dark": "#E0905A",
+          "light": "#B5541C",
+          "highContrast": "#FFA366",
+          "highContrastLight": "#8A3F0E"
+        }
+      },
+      {
         "id": "todone.headingForeground",
         "description": "Headings.",
         "defaults": {

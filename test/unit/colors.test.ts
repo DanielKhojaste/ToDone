@@ -50,4 +50,27 @@ describe('computeColorRanges', () => {
     assert.deepStrictEqual(s('note'), ['1:: inline', '2:below', '3:///', '4:-5 not a task', '5:///']);
     assert.deepStrictEqual(s('title-5'), []);
   });
+
+  it('highlights backtick text in notes, keeping the backticks dim', () => {
+    const s = styles('-5 Some color: `in backticks` after\n    a `note` line');
+    assert.deepStrictEqual(s('emphasis'), ['0:in backticks', '1:note']);
+    assert.deepStrictEqual(s('note'), ['0:: `', '0:` after', '1:a `', '1:` line']);
+    assert.deepStrictEqual(s('title-5'), ['0:Some color']);
+  });
+
+  it('continues an unclosed backtick span onto the next lines', () => {
+    const s = styles('-2 Add: `\n    -1 inside\n    end` done\n-1 Next');
+    assert.deepStrictEqual(s('emphasis'), ['1:    -1 inside', '2:    end']);
+    assert.deepStrictEqual(s('title-1'), ['3:Next']);
+  });
+
+  it('ignores escaped backticks and backticks in titles', () => {
+    const s = styles('-3 Title with `ticks`: a `b \\` c` d');
+    assert.deepStrictEqual(s('emphasis'), ['0:b \\` c']);
+  });
+
+  it('keeps notes of finished tasks uniformly dim', () => {
+    const s = styles('+-3 Done: `x`\n    `y`');
+    assert.deepStrictEqual(s('emphasis'), []);
+  });
 });

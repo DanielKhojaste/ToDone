@@ -30,6 +30,7 @@ export type ColorStyle =
   | 'cancelled-reason'
   | 'cancelled-block'
   | 'note'
+  | 'emphasis'
   | 'heading';
 
 export interface Span {
@@ -39,6 +40,36 @@ export interface Span {
 }
 
 export type ColorRanges = Map<ColorStyle, Span[]>;
+
+/**
+ * Splits note text into plain parts and backtick emphasis. Returns the inner
+ * spans of `like this` (backticks excluded) and whether a span is still open
+ * at the end of the line, since emphasis can continue onto the next line.
+ */
+export function emphasisSpans(text: string, start: number, open: boolean): { spans: Array<[number, number]>; open: boolean } {
+  const spans: Array<[number, number]> = [];
+  let spanStart = open ? start : -1;
+  for (let i = start; i < text.length; i++) {
+    const ch = text[i];
+    if (spanStart >= 0 && ch === '\\' && text[i + 1] === '`') {
+      i++;
+      continue;
+    }
+    if (ch !== '`') {
+      continue;
+    }
+    if (spanStart >= 0) {
+      spans.push([spanStart, i]);
+      spanStart = -1;
+    } else {
+      spanStart = i + 1;
+    }
+  }
+  if (spanStart >= 0) {
+    spans.push([spanStart, text.length]);
+  }
+  return { spans, open: spanStart >= 0 };
+}
 
 interface Open {
   width: number;
@@ -61,6 +92,21 @@ export function computeColorRanges(lines: readonly string[], infos: readonly Lin
 
   const stack: Open[] = [];
   const inherited = () => stack.find((o) => o.finished)?.finished;
+  let emphasisOpen: boolean = false;
+
+  /** Note text: dim, with backtick spans in the emphasis color. */
+  const addNote = (line: number, start: number, open: boolean) => {
+    const text = lines[line];
+    const result = emphasisSpans(text, start, open);
+    let pos = start;
+    for (const [a, b] of result.spans) {
+      add('note', line, pos, a);
+      add('emphasis', line, a, b);
+      pos = b;
+    }
+    add('note', line, pos, text.length);
+    emphasisOpen = result.open;
+  };
 
   for (let i = 0; i < lines.length; i++) {
     const text = lines[i];
@@ -84,13 +130,16 @@ export function computeColorRanges(lines: readonly string[], infos: readonly Lin
 
     const parentFinished = inherited();
     if (info.kind === 'raw' || info.kind === 'note') {
+      const continuing: boolean = info.kind === 'raw' && emphasisOpen;
       if (parentFinished) {
         add(`${parentFinished}-block`, i, contentStart, text.length);
+        emphasisOpen = emphasisSpans(text, continuing ? 0 : contentStart, continuing).open;
       } else {
-        add('note', i, contentStart, text.length);
+        addNote(i, continuing ? 0 : contentStart, continuing);
       }
       continue;
     }
+    emphasisOpen = false;
 
     const task = info.task;
     if (!task) {
@@ -109,6 +158,7 @@ export function computeColorRanges(lines: readonly string[], infos: readonly Lin
         add('completed-mark', i, plus, plus + 1);
         add('completed-title', i, task.titleStart, task.titleEnd);
       }
+      emphasisOpen = emphasisSpans(text, task.noteStart, false).open;
       if (own === 'cancelled') {
         add('cancelled-mark', i, task.indent.length, task.indent.length + 1);
         if (task.reason !== undefined) {
@@ -128,7 +178,7 @@ export function computeColorRanges(lines: readonly string[], infos: readonly Lin
       add('emergency-title', i, task.titleStart, task.titleEnd);
     }
     if (task.noteStart < text.length) {
-      add('note', i, task.noteStart, text.length);
+      addNote(i, task.noteStart, false);
     }
   }
   return ranges;

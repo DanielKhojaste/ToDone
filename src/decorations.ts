@@ -33,6 +33,7 @@ const STYLES: Record<ColorStyle, vscode.DecorationRenderOptions> = {
   'cancelled-reason': { color: color('cancelledForeground'), fontStyle: 'italic', opacity: '0.8' },
   'cancelled-block': { opacity: '0.4' },
   note: { color: color('noteForeground'), opacity: '0.75' },
+  emphasis: { color: color('emphasisForeground'), fontStyle: 'italic' },
   heading: { color: color('headingForeground'), fontWeight: 'bold' },
 };
 
