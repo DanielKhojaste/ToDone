@@ -8,6 +8,7 @@ import {
   shiftPriority,
   toggleState,
 } from './edits';
+import { ToDoneDecorator } from './decorations';
 import { buildOutline, OutlineNode } from './outline';
 import { LineInfo, Priority, scanLines } from './parser';
 
@@ -34,6 +35,7 @@ export function activate(context: vscode.ExtensionContext): void {
       { provideDocumentSymbols: (document) => provideSymbols(document) },
       { label: 'ToDone' },
     ),
+    new ToDoneDecorator(),
   );
 }
 

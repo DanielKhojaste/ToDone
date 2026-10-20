@@ -169,6 +169,19 @@
     "configuration": {
       "title": "ToDone",
       "properties": {
+        "todone.colors": {
+          "type": "string",
+          "enum": [
+            "builtin",
+            "theme"
+          ],
+          "default": "builtin",
+          "enumDescriptions": [
+            "Color tasks with ToDone's own colors, which stay distinct in any color theme. Adjust them with workbench.colorCustomizations.",
+            "Leave all coloring to the active color theme, using the scopes from the ToDone grammar."
+          ],
+          "markdownDescription": "Where task colors come from. `builtin` uses ToDone's own colors (customizable under `workbench.colorCustomizations`, for example `todone.priority5Foreground`). `theme` relies only on your color theme."
+        },
         "todone.priorityStyle": {
           "type": "string",
           "enum": [
@@ -195,7 +208,119 @@
           "markdownDescription": "Show cancelled (`.`) tasks and their subtasks in the Outline view and in Go to Symbol."
         }
       }
-    }
+    },
+    "colors": [
+      {
+        "id": "todone.markerForeground",
+        "description": "Marker of a priority 1 task.",
+        "defaults": {
+          "dark": "#8A8A8A",
+          "light": "#8A8A8A",
+          "highContrast": "#BBBBBB",
+          "highContrastLight": "#555555"
+        }
+      },
+      {
+        "id": "todone.priority2Foreground",
+        "description": "Priority 2 task titles and markers.",
+        "defaults": {
+          "dark": "#8BD17C",
+          "light": "#2E8B3D",
+          "highContrast": "#9FE39A",
+          "highContrastLight": "#1B6B2A"
+        }
+      },
+      {
+        "id": "todone.priority3Foreground",
+        "description": "Priority 3 task titles and markers.",
+        "defaults": {
+          "dark": "#C792EA",
+          "light": "#8E3FC4",
+          "highContrast": "#D7AEFF",
+          "highContrastLight": "#6A1FA0"
+        }
+      },
+      {
+        "id": "todone.priority4Foreground",
+        "description": "Priority 4 task titles and markers.",
+        "defaults": {
+          "dark": "#FFCB45",
+          "light": "#A86F00",
+          "highContrast": "#FFD966",
+          "highContrastLight": "#7A5200"
+        }
+      },
+      {
+        "id": "todone.priority5Foreground",
+        "description": "Priority 5 task titles and markers.",
+        "defaults": {
+          "dark": "#FF5C7A",
+          "light": "#D21F3C",
+          "highContrast": "#FF7A92",
+          "highContrastLight": "#B0102C"
+        }
+      },
+      {
+        "id": "todone.emergencyForeground",
+        "description": "The ! of an emergency task.",
+        "defaults": {
+          "dark": "#FFFFFF",
+          "light": "#FFFFFF",
+          "highContrast": "#FFFFFF",
+          "highContrastLight": "#FFFFFF"
+        }
+      },
+      {
+        "id": "todone.emergencyBackground",
+        "description": "Background behind the ! of an emergency task.",
+        "defaults": {
+          "dark": "#E5193C",
+          "light": "#D21F3C",
+          "highContrast": "#E5193C",
+          "highContrastLight": "#B0102C"
+        }
+      },
+      {
+        "id": "todone.completedForeground",
+        "description": "The + of a completed task.",
+        "defaults": {
+          "dark": "#53E442",
+          "light": "#2E9E3E",
+          "highContrast": "#6CFF5C",
+          "highContrastLight": "#1B6B2A"
+        }
+      },
+      {
+        "id": "todone.cancelledForeground",
+        "description": "The . of a cancelled task and its reason.",
+        "defaults": {
+          "dark": "#E08A4F",
+          "light": "#B85A1E",
+          "highContrast": "#FFA366",
+          "highContrastLight": "#8A3F0E"
+        }
+      },
+      {
+        "id": "todone.noteForeground",
+        "description": "Notes.",
+        "defaults": {
+          "dark": "#9A9A9A",
+          "light": "#6E6E6E",
+          "highContrast": "#CCCCCC",
+          "highContrastLight": "#444444"
+        }
+      },
+      {
+        "id": "todone.headingForeground",
+        "description": "Headings.",
+        "defaults": {
+          "dark": "#6CB6FF",
+          "light": "#1F6FEB",
+          "highContrast": "#8CC8FF",
+          "highContrastLight": "#0B4FB3"
+        }
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
