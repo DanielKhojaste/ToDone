@@ -31,7 +31,10 @@ export function activate(context: vscode.ExtensionContext): void {
 
   context.subscriptions.push(
     vscode.languages.registerDocumentSymbolProvider(
-      { language: LANGUAGE_ID },
+      [
+        { language: LANGUAGE_ID, scheme: 'file' },
+        { language: LANGUAGE_ID, scheme: 'untitled' },
+      ],
       { provideDocumentSymbols: (document) => provideSymbols(document) },
       { label: 'ToDone' },
     ),
