@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <rect x="8" y="8" width="240" height="240" rx="48" fill="#1f2430"/>
+  <!-- priority markers: five, three and one hyphen -->
+  <g stroke-linecap="round" stroke-width="14">
+    <line x1="52" y1="78" x2="112" y2="78" stroke="#f0506e"/>
+    <line x1="140" y1="78" x2="204" y2="78" stroke="#e8eaf0"/>
+    <line x1="52" y1="128" x2="88" y2="128" stroke="#c678dd"/>
+    <line x1="116" y1="128" x2="204" y2="128" stroke="#e8eaf0" stroke-opacity="0.85"/>
+    <line x1="52" y1="178" x2="64" y2="178" stroke="#56b6c2"/>
+    <line x1="92" y1="178" x2="150" y2="178" stroke="#e8eaf0" stroke-opacity="0.35"/>
+  </g>
+  <!-- check mark on the finished line -->
+  <path d="M164 176 l14 14 l30 -32" fill="none" stroke="#7bd88f" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

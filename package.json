@@ -8,6 +8,11 @@
     "name": "Daniel Khojaste"
   },
   "license": "MIT",
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#1f2430",
+    "theme": "dark"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/DanielKhojaste/ToDone.git"
